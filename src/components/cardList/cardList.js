@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
-import { Card, Grid, Button, withStyles, IconButton, TextField } from '@material-ui/core';
+import { Card, Grid, Button, withStyles, IconButton, TextField, Typography } from '@material-ui/core';
 import { MoreHoriz } from '@material-ui/icons';
 import { CardTile, AddCardTile } from '..';
 
 const styles = () => ({
     cardContainer: {
-        padding: "1% 2% 2% 2%",
+        padding: "1% 3% 2% 3%",
         backgroundColor: "rgb(235, 236, 240)"
     },
     addAnotherButton: {
@@ -14,13 +14,16 @@ const styles = () => ({
         color: "#5e6c84"
     },
     listTitle: {
-        outline: "",
-        border: "none",
-        padding: "2%",
-        '&:active': {
-            backgroundColor: "white"
-        },
-
+        padding: "6% 5% 4% 4%",
+        fontSize: "16px",
+        fontWeight: "bold",
+        cursor: "pointer",
+        color: "#6d798f"
+    },
+    listTileTextField: {
+        fontSize: "16px",
+        color: "#6d798f",
+        fontWeight: "bold"
     }
 })
 
@@ -28,6 +31,7 @@ const CardList = (props) => {
     const { classes, ...other } = props;
     const { listDetails, updateList } = other;
     const [addNewCard, setAddNewCard] = useState(false);
+    const [editListTitle, setEditListTitle] = useState(false);
     const [listTitle, setListTitle] = useState(listDetails.listTitle);
 
     return (
@@ -36,25 +40,38 @@ const CardList = (props) => {
                 <Grid container alignItems="center" spacing={1}>
                     <Grid item xs={12} md={12}>
                         <Grid container alignItems="center" justify="space-between" spacing={1}>
-                            <Grid item xs={9}>
-                                <TextField
-                                    fullWidth
-                                    value={listTitle}
-                                    variant="outlined"
-                                    margin="dense"
-                                    size="small"
-                                    onChange={(event) => setListTitle(event.target.value)}
-                                    onBlur={() => {
-                                        if (listTitle) {
-                                            listDetails.listTitle = listTitle;
-                                            updateList(listDetails);
-                                        }
-                                        setListTitle(listDetails.listTitle);
-                                    }}
-                                />
+                            <Grid item xs={10}>
+                                {
+                                    editListTitle ?
+                                        <TextField
+                                            autoFocus
+                                            fullWidth
+                                            value={listTitle}
+                                            variant="outlined"
+                                            margin="dense"
+                                            size="small"
+                                            onChange={(event) => setListTitle(event.target.value)}
+                                            onBlur={() => {
+                                                if (listTitle) {
+                                                    listDetails.listTitle = listTitle;
+                                                    updateList(listDetails);
+                                                }
+                                                setEditListTitle(false);
+                                                setListTitle(listDetails.listTitle);
+                                            }}
+                                            classes={{
+                                                root: classes.listTileTextField
+                                            }}
+                                        /> :
+                                        <Typography
+                                            className={classes.listTitle}
+                                            onClick={() => setEditListTitle(true)}>
+                                            {listDetails.listTitle}
+                                        </Typography>
+                                }
                             </Grid>
-                            <Grid item xs={2}>
-                                <IconButton size="small">
+                            <Grid item xs={2} align="right">
+                                <IconButton size="small" disabled>
                                     <MoreHoriz />
                                 </IconButton>
                             </Grid>
@@ -67,11 +84,12 @@ const CardList = (props) => {
                             </Grid>
                         )
                     }
-
                     <Grid item xs={12} md={12}>
                         {
                             addNewCard ?
-                                <AddCardTile {...other} closeAddNewCardView={() => setAddNewCard(false)} /> :
+                                <AddCardTile
+                                    closeAddNewCardView={() => setAddNewCard(false)}
+                                    {...other} /> :
                                 <Button
                                     className={classes.addAnotherButton}
                                     onClick={() => setAddNewCard(true)}>
@@ -86,7 +104,9 @@ const CardList = (props) => {
 }
 
 CardList.defaultProps = {
-    listDetails: []
+    classes: {},
+    listDetails: [],
+    updateList: []
 }
 
 export default withStyles(styles)(CardList);

@@ -13,10 +13,21 @@ const styles = () => ({
         backgroundColor: "#5aac44",
         '&:hover': {
             backgroundColor: "#5aa000",
-        }
+        },
     },
     closeIcon: {
         cursor: "pointer"
+    },
+    underline: {
+        "&&&:before": {
+            borderBottom: "none"
+        },
+        "&&:after": {
+            borderBottom: "none"
+        }
+    },
+    cardTitleTextField: {
+        padding: "1% 4% 1% 4%"
     }
 })
 
@@ -33,7 +44,6 @@ const AddCardList = (props) => {
                         <TextField
                             autoFocus
                             fullWidth
-                            variant="outlined"
                             margin="dense"
                             multiline
                             rows={3}
@@ -41,6 +51,12 @@ const AddCardList = (props) => {
                             placeholder="Enter a title for this card..."
                             onChange={(event) => {
                                 setCardTitle(event.target.value)
+                            }}
+                            classes={{
+                                root: classes.cardTitleTextField
+                            }}
+                            InputProps={{
+                                classes
                             }}
                         />
                     </Card>

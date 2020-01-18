@@ -1,18 +1,15 @@
 import React, { Fragment, useState } from 'react';
-import { Card, Typography, withStyles } from '@material-ui/core';
+import { Card, Typography, withStyles, Button, Grid } from '@material-ui/core';
 import CardPopup from '../cardPopup/cardPopup';
 
 const styles = () => ({
-    cardTileHolder: {
-        padding: "4%",
-        cursor: "pointer",
-        '&:hover': {
-            backgroundColor: "grey"
-        }
+    cardButton: {
+        textTransform: "none",
+        width: "100%",
+        height: "100%"
     },
     cardTitle: {
         fontSize: "14px",
-        fontWeight: "bold",
         color: "#172b4d"
     },
     cardDescription: {
@@ -27,13 +24,21 @@ const CardTile = (props) => {
 
     return (
         <Fragment>
-            <Card draggable className={classes.cardTileHolder} onClick={() => setShowCardPopup(true)}>
-                <Typography className={classes.cardTitle}>
-                    {cardDetails.title}
-                </Typography>
-                <Typography className={classes.cardDescription}>
-                    {cardDetails.description}
-                </Typography>
+            <Card draggable onClick={() => setShowCardPopup(true)}>
+                <Button variant="text" className={classes.cardButton}>
+                    <Grid container alignItems="center">
+                        <Grid item xs={12} md={12} align="left">
+                            <Typography className={classes.cardTitle}>
+                                {cardDetails.title}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} md={12} align="left">
+                            <Typography className={classes.cardDescription}>
+                                {cardDetails.description}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Button>
             </Card>
             {
                 showCardPopup &&
