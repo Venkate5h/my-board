@@ -26,13 +26,13 @@ const styles = () => ({
 
 const CardList = (props) => {
     const { classes, ...other } = props;
-    const { listDetails } = other;
+    const { listDetails, updateList } = other;
     const [addNewCard, setAddNewCard] = useState(false);
     const [listTitle, setListTitle] = useState(listDetails.listTitle);
 
     return (
         <Fragment>
-            <Card className={classes.cardContainer} onDropCapture={(event) => event.preventDefault()}>
+            <Card className={classes.cardContainer}>
                 <Grid container alignItems="center" spacing={1}>
                     <Grid item xs={12} md={12}>
                         <Grid container alignItems="center" justify="space-between" spacing={1}>
@@ -47,7 +47,9 @@ const CardList = (props) => {
                                     onBlur={() => {
                                         if (listTitle) {
                                             listDetails.listTitle = listTitle;
+                                            updateList(listDetails);
                                         }
+                                        setListTitle(listDetails.listTitle);
                                     }}
                                 />
                             </Grid>

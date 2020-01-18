@@ -38,7 +38,7 @@ const styles = (theme) => ({
 
 const CardPopup = (props) => {
     const { classes, ...other } = props;
-    const { cardDetails, listDetails, closeCardPopup, open, updateBoard } = other;
+    const { cardDetails, listDetails, closeCardPopup, open, updateCard } = other;
     const [cardTitle, setCardTitle] = useState(cardDetails.title);
     const [cardDescription, setCardDescription] = useState(cardDetails.description);
     const [editDescription, setEditDescription] = useState(false);
@@ -64,9 +64,11 @@ const CardPopup = (props) => {
                                     setCardTitle(event.target.value)
                                 }}
                                 onBlur={() => {
-                                    if (cardTitle)
+                                    if (cardTitle) {
                                         cardDetails.title = cardTitle
-                                    updateBoard(other.board)
+                                        updateCard(cardDetails);
+                                    }
+                                    setCardTitle(cardDetails.title)
                                 }}
                             />
                             <Typography>
@@ -84,6 +86,7 @@ const CardPopup = (props) => {
                                     <Grid container alignItems="center" spacing={1}>
                                         <Grid item xs={12} md={12}>
                                             <TextField
+                                                autoFocus
                                                 fullWidth
                                                 variant="outlined"
                                                 margin="dense"
@@ -92,6 +95,11 @@ const CardPopup = (props) => {
                                                 value={cardDescription}
                                                 placeholder="Add a more detailed description"
                                                 onChange={(event) => setCardDescription(event.target.value)}
+                                                onBlur={() => {
+                                                    cardDetails.description = cardDescription
+                                                    updateCard(cardDetails);
+                                                    setEditDescription(false)
+                                                }}
                                             />
                                         </Grid>
                                         <Grid item>
@@ -99,7 +107,7 @@ const CardPopup = (props) => {
                                                 className={classes.saveButton}
                                                 onClick={() => {
                                                     cardDetails.description = cardDescription
-                                                    updateBoard(other.board)
+                                                    updateCard(cardDetails);
                                                     setEditDescription(false)
                                                 }}>
                                                 Save

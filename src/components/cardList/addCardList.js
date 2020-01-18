@@ -30,6 +30,7 @@ const AddCardList = (props) => {
                 <Grid container alignItems="center" spacing={1}>
                     <Grid item xs={12} md={12}>
                         <TextField
+                            autoFocus
                             fullWidth
                             variant="outlined"
                             margin="dense"
