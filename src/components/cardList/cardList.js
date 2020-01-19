@@ -36,7 +36,7 @@ const CardList = (props) => {
 
     return (
         <Fragment>
-            <Card className={classes.cardContainer}>
+            <Card draggable className={classes.cardContainer}>
                 <Grid container alignItems="center" spacing={1}>
                     <Grid item xs={12} md={12}>
                         <Grid container alignItems="center" justify="space-between" spacing={1}>

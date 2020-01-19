@@ -32,11 +32,6 @@ const CardTile = (props) => {
                                 {cardDetails.title}
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} md={12} align="left">
-                            <Typography className={classes.cardDescription}>
-                                {cardDetails.description}
-                            </Typography>
-                        </Grid>
                     </Grid>
                 </Button>
             </Card>
