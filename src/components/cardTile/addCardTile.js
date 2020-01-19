@@ -56,7 +56,9 @@ const AddCardList = (props) => {
                                 root: classes.cardTitleTextField
                             }}
                             InputProps={{
-                                classes
+                                classes: {
+                                    underline: classes.underline
+                                }
                             }}
                         />
                     </Card>

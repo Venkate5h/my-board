@@ -99,6 +99,7 @@ const CardPopup = (props) => {
                                     </Grid> :
                                     <Typography
                                         variant="subtitle2"
+                                        className={classes.cardDescription}
                                         onClick={() => setEditDescription(true)}>
                                         {cardDetails.description}
                                     </Typography>

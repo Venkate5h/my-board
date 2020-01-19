@@ -37,7 +37,10 @@ const cardPopupStyles = (theme) => ({
     },
     descriptionLabel: {
         fontSize: "16px",
-        fontWeight: "bold"
+        fontWeight: "bold",
+    },
+    cardDescription: {
+        cursor: "pointer"
     }
 })
 
